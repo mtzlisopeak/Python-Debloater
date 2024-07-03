@@ -49,7 +49,15 @@ def desinstalarApp():
             break
 
         else:
-            run(["./adb", "shell", "pm", "uninstall", "--user", "0", app])
+            desinstalacao = run(["./adb", "shell", "pm", "uninstall", "--user", "0", app])
+            if desinstalacao.returncode == 0:
+                limparTerminal()
+                print("Desinstalado com sucesso")
+
+            else:
+                limparTerminal()
+                print("Falha na desinstalação")
+            
             sleep(1)
             limparTerminal()
 
@@ -62,9 +70,17 @@ def desativarApp():
         if app == "E" or app == "e":
             break
         else:
-            run(["./adb", "shell", "pm", "disable-user", "--user", "0", app])
-            sleep(1)
-            limparTerminal()
+            desativacao = run(["./adb", "shell", "pm", "disable-user", "--user", "0", app])
+            if desativacao.returncode == 0:
+                limparTerminal()
+                print("Desativado com seucesso")
+
+            else:
+                limparTerminal()
+                print("Falha na desinstalação")
+
+        sleep(1)
+        limparTerminal()
 
 def procurarApp():
     pacotes = run(["./adb", "shell", "pm", "list","packages"], text=True, capture_output=True).stdout.splitlines()
