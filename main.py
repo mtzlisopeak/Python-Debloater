@@ -15,13 +15,13 @@ def verificar():
         limparTerminal()
         while sair == False:
             limparTerminal()
-            escolha = int(input("[ 0 ] Desinstalar App\n[ 1 ] Desativar App\n[ 2 ]Sair\n>>>"))
+            escolha = int(input("[ 0 ] Desinstalar App\n[ 1 ] Desativar App\n[ 2 ] Sair\n>>>"))
             
             if escolha == 0:
                 desinstalarApp()
 
             elif escolha == 1:
-                break
+                desativarApp()
 
             elif escolha == 2:
                 limparTerminal()
@@ -56,6 +56,23 @@ def desinstalarApp():
         else:
             print("Opção inválida")
             sleep(1)
+
+def desativarApp():
+    procurarApp()
+    app = str(input("Desativar o App:"))
+    run(["./adb", "shell", "pm", "disable-user", "--user 0", app])
+    sleep(1)
+    while True:
+        limparTerminal()
+        continuar = int(input("[ 0 ] Desativar outro app\n[ 1 ] Sair\n>>>"))
+        if continuar == 0:
+            desativarApp()
+
+        elif continuar == 1:
+            break
+
+        else:
+            print("Opção inválida")
 
 def procurarApp():
     pacotes = run(["./adb", "shell", "pm", "list","packages"], text=True, capture_output=True).stdout.splitlines()
