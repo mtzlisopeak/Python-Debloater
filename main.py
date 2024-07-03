@@ -49,7 +49,7 @@ def desinstalarApp():
             break
 
         else:
-            run(["./adb", "shell", "pm", "uninstall", "--user 0", app])
+            run(["./adb", "shell", "pm", "uninstall", "--user", "0", app])
             sleep(1)
             limparTerminal()
 
@@ -62,7 +62,7 @@ def desativarApp():
         if app == "E" or app == "e":
             break
         else:
-            run(["./adb", "shell", "pm", "disable-user", "--user 0", app])
+            run(["./adb", "shell", "pm", "disable-user", "--user", "0", app])
             sleep(1)
             limparTerminal()
 
@@ -74,7 +74,10 @@ def procurarApp():
     filtro = str(input("Digite o nome de um app que deseja procurar:\n>>>"))
     apps_filtrados = [app for app in apps if filtro in app]
 
-    for app in apps_filtrados:
-        print(app)
+    if not apps_filtrados:
+        print("Nenhum app encontrado")
+    else:
+        for app in apps_filtrados:
+            print(app)
 
 iniciar()
