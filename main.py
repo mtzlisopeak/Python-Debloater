@@ -9,9 +9,15 @@ def verificar():
     verificacao = run(["./adb", "shell", "wm", "size"])
     if verificacao.returncode == 0:
         system("clear")
-        print("Conectado")
+        print("Dispositivo Conectado")
+        desinstalarApp()
     elif verificacao.returncode == 1:
         system("clear")
-        print("Não conectado")
+        print("Nenhum dispositivo conectado")
 
+def desinstalarApp():
+    run(["./adb", "shell", "pm", "list", "packages"])
+    app = str(input("Nome do App:"))
+    run(["./adb", "shell", "pm", "uninstall", "--user", "0", app])
+    
 verificar()
